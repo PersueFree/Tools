@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+</head>
+
+<body>
+    <script>
+        let flutter_inappwebview = false;
+        window.addEventListener("flutterInAppWebViewPlatformReady", () => {
+            flutter_inappwebview = true;
+        })
+        const invokeHandler = (action, data, callbackId) => {
+            try {
+                window.flutter_inappwebview.callHandler("ph_vamo_android", {
+                    action: action,
+                    data: data,
+                    callbackId: callbackId
+                })
+            } catch (error) { console.error(error) }
+        }
+
+        // 解析 URL 参数
+        function getUrlParam(name) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(name);
+        }
+
+        // 页面加载后执行
+        document.addEventListener('DOMContentLoaded', () => {
+            const biz_id = getUrlParam('biz_id');
+            console.log('biz_id:', biz_id);
+            if (biz_id) {
+                if (flutter_inappwebview) {
+                    invokeHandler("fads_vddd_faclite", biz_id, `cb_${biz_id}`);
+                } else {
+                    const readyHandler = () => {
+                        window.removeEventListener("flutterInAppWebViewPlatformReady", readyHandler);
+                        invokeHandler("fads_vddd_faclite", biz_id, `cb_${biz_id}`);
+                    }
+                    window.addEventListener("flutterInAppWebViewPlatformReady", readyHandler);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

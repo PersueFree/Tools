@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-Control" content="no-cache">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="referrer" content="no-referrer">
+  <link rel="icon" href="./favicon.ico">
+  <title></title>
+  <script type='text/javascript'>
+    var ohtml = document.documentElement;
+    getSize();
+
+    window.onresize = function () {
+      getSize();
+    };
+
+    function getSize() {
+      var screenWidth = ohtml.clientWidth;
+      if (screenWidth <= 320) {
+        ohtml.style.fontSize = '17px';
+      } else if (screenWidth >= 750) {
+        ohtml.style.fontSize = '40px';
+      } else {
+        ohtml.style.fontSize = screenWidth / (750 / 40) + 'px';
+      }
+    }
+
+    var u = navigator.userAgent,
+      isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+  </script>
+  <script type='text/javascript'>
+    window.isCanBack = function () {
+      let isBack = {};
+      isBack.title = localStorage.getItem("title");
+      isBack.status = localStorage.getItem("status");
+      return isBack;
+    }
+
+    pushState = '';
+    window.getPushState = function (status) {
+      pushState = status;
+      return pushState
+    }
+  </script>
+</head>
+
+<body>
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
+</html>

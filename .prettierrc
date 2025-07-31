@@ -1,0 +1,22 @@
+{
+  "jsxSingleQuote": true,
+  "singleQuote": false,
+  "printWidth": 100,
+  "semi": true,
+  "tabWidth": 2,
+  "quoteProps": "preserve",
+  "importOrder": [
+    "^@/pages/(.*)$",
+    "^@/components/(.*)$",
+    "^@/hocs/(.*)$",
+    "^@/hooks/(.*)$",
+    "^@/api/(.*)$",
+    "^@/utils/(.*)$",
+    "^@/assets/(.*)$",
+    "^@/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "plugins": ["@trivago/prettier-plugin-sort-imports"]
+}
