@@ -4,8 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "vite --mode dev",
-    "buildTest": "vite build --mode dev",
+    "start": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -13,8 +12,9 @@
     "markdown": "node markdown.cjs"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.8.2",
     "@types/crypto-js": "^4.2.2",
-    "antd-mobile": "^5.37.1",
+    "antd": "^5.26.7",
     "axios": "^1.7.7",
     "compressorjs": "^1.2.1",
     "copy-to-clipboard": "^3.3.3",
@@ -29,6 +29,7 @@
     "react-barcode": "^1.5.3",
     "react-dom": "18.3.1",
     "react-i18next": "^15.0.1",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^6.26.1",
     "styled-components": "^6.1.17",
     "stylis": "^4.3.4"

@@ -1,4 +1,3 @@
-import "antd-mobile/es/global";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { StyleSheetManager } from "styled-components";
