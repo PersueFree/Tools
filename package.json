@@ -5,8 +5,11 @@
   "type": "module",
   "scripts": {
     "start": "vite",
+    "dev:chat": "node ./scripts/dev-with-ws.cjs",
+    "ws:start": "node ./nodeConfig/server.js",
+    "chat:start": "npm run ws:start",
     "build": "vite build",
-    "lint": "eslint .",
+    "lint": "node ./node_modules/eslint/bin/eslint.js src",
     "preview": "vite preview",
     "bootstrap": "node bootstrap.cjs",
     "markdown": "node markdown.cjs"

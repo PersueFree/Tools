@@ -3,8 +3,7 @@ import { FC, useEffect } from "react";
 import styled from "styled-components";
 
 import { useAppDispatch, useAppSelector } from "@/store";
-import { setCc_state } from "@/store/appSlice";
-import { extractTextareaText } from "@/utils/extractTextareaText";
+import { setJs_state } from "@/store/appSlice";
 
 const { TextArea } = Input;
 
@@ -54,50 +53,38 @@ const Button = styled.div<{ $enble?: boolean }>`
     opacity: 0.8;
   }
 `;
-const InputEvent = styled(Input)`
-  width: 200px;
-  height: 40px;
-`;
 const SelectEvent = styled(Select)`
   width: 200px;
   height: 40px;
 `;
 
-const ConfusionConversion: FC = () => {
+const JSONEscape: FC = () => {
   const dispatch = useAppDispatch();
-  const cc = useAppSelector((state) => state.app.cc);
+  const js = useAppSelector((state) => state.app.js);
   const [form] = Form.useForm();
 
   useEffect(() => {
-    if (cc.result) {
-      form.setFieldsValue(cc);
+    if (js.result) {
+      form.setFieldsValue(js);
     }
-  }, [cc, form]);
+  }, [form, js]);
 
   const handleSubmit = async () => {
     const formValue = await form.validateFields();
 
     try {
-      // 请求数据, FormData
-      const formData = new FormData();
-      // 当前混淆转到另一个混淆
-      formData.append("project", formValue.confuseKey);
-      // 转义 0，反转义 1。一个混淆转另一个时，忽略
-      formData.append("reverse", formValue.type);
-      // 混淆数据
-      formData.append("origin", formValue.subValue);
-
-      const res = await fetch("decode", {
-        method: "POST",
-        body: formData,
-      });
-      const html = await res.text();
-      const result = extractTextareaText(html, "#right textarea");
+      let formatted = "";
+      if (formValue.type === 0) {
+        const jsonObject = JSON.parse(formValue.subValue.trim()); // trim()去除多余空格
+        formatted = JSON.stringify(jsonObject, null, 2);
+      } else {
+        formatted = JSON.stringify(JSON.parse(formValue.subValue));
+      }
 
       form.setFieldsValue({
-        result: result,
+        result: formatted,
       });
-      dispatch(setCc_state({ ...formValue, result: result }));
+      dispatch(setJs_state({ ...formValue, result: formatted }));
     } catch (error) {
       console.log(error);
     }
@@ -105,19 +92,16 @@ const ConfusionConversion: FC = () => {
 
   return (
     <Container>
-      <Title>混淆转换</Title>
+      <Title>JSON格式化</Title>
       <FormEvent form={form} autoComplete='off' initialValues={{ type: 0 }}>
         <ButtonContent>
-          <Form.Item name='confuseKey' rules={[{ required: true, message: "请输入混淆key" }]}>
-            <InputEvent placeholder='例如：ph_vamo' />
-          </Form.Item>
           <Form.Item name='type'>
             <SelectEvent
               options={[
-                { label: "转义", value: 0 },
-                { label: "反转义", value: 1 },
+                { label: "格式化", value: 0 },
+                { label: "压缩", value: 1 },
               ]}
-              placeholder='请选择混淆类型'
+              placeholder='请选择类型'
               style={{ width: 200 }}
             />
           </Form.Item>
@@ -128,7 +112,19 @@ const ConfusionConversion: FC = () => {
             <TextAreaInput rows={30} />
           </Form.Item>
           <Form.Item name='result'>
-            <TextAreaInput readOnly rows={30} />
+            <TextAreaInput
+              style={{
+                padding: "8px",
+                fontSize: "14px",
+                border: "1px solid #ddd",
+                borderRadius: "4px",
+                whiteSpace: "pre-wrap",
+                overflow: "auto",
+                resize: "vertical",
+              }}
+              readOnly
+              rows={30}
+            />
           </Form.Item>
         </Content>
       </FormEvent>
@@ -136,4 +132,4 @@ const ConfusionConversion: FC = () => {
   );
 };
 
-export default ConfusionConversion;
+export default JSONEscape;

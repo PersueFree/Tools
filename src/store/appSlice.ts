@@ -1,6 +1,14 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { AppState, CcState, EdState, PocState, RsState, StState } from "@/types/reduxTypes";
+import {
+  AppState,
+  CcState,
+  EdState,
+  JsState,
+  PocState,
+  RsState,
+  StState,
+} from "@/types/reduxTypes";
 
 const initialState: AppState = {
   st: JSON.parse(sessionStorage.getItem("st") || "{}"),
@@ -8,6 +16,7 @@ const initialState: AppState = {
   cc: JSON.parse(sessionStorage.getItem("cc") || "{}"),
   poc: JSON.parse(sessionStorage.getItem("poc") || "{}"),
   ed: JSON.parse(sessionStorage.getItem("ed") || "{}"),
+  js: JSON.parse(sessionStorage.getItem("js") || "{}"),
 };
 
 const appSlice = createSlice({
@@ -34,10 +43,14 @@ const appSlice = createSlice({
       state.ed = action.payload;
       sessionStorage.setItem("ed", JSON.stringify(action.payload));
     },
+    setJs_state(state, action: PayloadAction<JsState>) {
+      state.js = action.payload;
+      sessionStorage.setItem("js", JSON.stringify(action.payload));
+    },
   },
 });
 
-export const { setSt_state, setCc_state, setPoc_state, setEd_state, setRs_state } =
+export const { setSt_state, setCc_state, setPoc_state, setEd_state, setRs_state, setJs_state } =
   appSlice.actions;
 
 export default appSlice.reducer;

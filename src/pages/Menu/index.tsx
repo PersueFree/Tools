@@ -1,8 +1,8 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import { MenuItemType, menuItems } from "@/router/routerConfig";
+import { menuItems } from "@/router/routerConfig";
 
 const Container = styled.div`
   width: 100%;
@@ -49,30 +49,17 @@ const MenuItem = styled.div<{ $selected: boolean }>`
 const Menu: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
-
-  useEffect(() => {
-    const hash = location.pathname.replace("#", "") || "/";
-    const index = menuItems.findIndex((item) => item.path === hash);
-    setSelectedIndex(index);
-  }, [location]);
-
-  const handleSelect = (item: MenuItemType, index: number) => {
-    setSelectedIndex(index);
-
-    // 这里可以添加路由跳转逻辑
-    navigate(item.path);
-  };
+  const currentPath = location.pathname || "/";
 
   return (
     <Container>
       <Title>Menu</Title>
       <MenuContent>
-        {menuItems.map((item, index) => (
+        {menuItems.map((item) => (
           <MenuItem
             key={item.path}
-            $selected={selectedIndex === index}
-            onClick={() => handleSelect(item, index)}
+            $selected={currentPath === item.path}
+            onClick={() => navigate(item.path)}
           >
             {item.name}
           </MenuItem>

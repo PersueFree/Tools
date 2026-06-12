@@ -2,6 +2,15 @@
 import "react";
 import { Theme } from "styled-components";
 
+interface ImportMetaEnv {
+  readonly VITE_WS_URL?: string;
+  readonly VITE_WS_PORT?: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
+
 declare module "*.svg" {
   import React from "react";
   const content: React.RC<React.SVGProps<SVGSVGElement>>;

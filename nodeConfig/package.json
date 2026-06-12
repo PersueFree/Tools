@@ -1,0 +1,16 @@
+{
+  "name": "nodeconfig",
+  "version": "1.0.0",
+  "description": "Local WebSocket chat server for Tools project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ws": "^8.19.0"
+  }
+}

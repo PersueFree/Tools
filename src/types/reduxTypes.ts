@@ -34,12 +34,19 @@ export interface EdState {
   dstRight?: string;
 }
 
+export interface JsState {
+  type?: string;
+  subValue?: string;
+  result?: string;
+}
+
 export interface AppState {
   st: StState;
   rs: RsState;
   cc: CcState;
   poc: PocState;
   ed: EdState;
+  js: JsState;
 }
 
 // Redux action payload types

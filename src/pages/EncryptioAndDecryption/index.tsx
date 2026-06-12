@@ -1,10 +1,10 @@
 import { Form, Input, Select } from "antd";
-import * as cheerio from "cheerio";
 import { FC, useEffect } from "react";
 import styled from "styled-components";
 
 import { useAppDispatch, useAppSelector } from "@/store";
 import { setEd_state } from "@/store/appSlice";
+import { extractTextareaText } from "@/utils/extractTextareaText";
 
 const { TextArea } = Input;
 
@@ -72,7 +72,7 @@ const EncryptioAndDecryption: FC = () => {
     if (ed.result) {
       form.setFieldsValue(ed);
     }
-  }, []);
+  }, [ed, form]);
 
   const handleSubmit = async () => {
     const formValue = await form.validateFields();
@@ -89,10 +89,9 @@ const EncryptioAndDecryption: FC = () => {
         body: formData,
       });
       const html = await res.text();
-      const $ = cheerio.load(html);
-      const result = $("#right textarea").text();
-      const dstRight = $("#dstRight textarea").text();
-
+      const result = extractTextareaText(html, "#right textarea");
+      const dstRight = extractTextareaText(html, "#dstRight textarea");
+      // JSON.stringify(result, null, 2)
       form.setFieldsValue({
         result: result,
         dstRight: dstRight,

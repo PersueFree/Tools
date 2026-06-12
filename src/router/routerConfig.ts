@@ -30,6 +30,21 @@ const menuItems: MenuItemType[] = [
     path: "/ed",
     element: () => import("@/pages/EncryptioAndDecryption"),
   },
+  {
+    name: "JSON格式化",
+    path: "/js",
+    element: () => import("@/pages/JSONEscape"),
+  },
+  {
+    name: "证件照",
+    path: "/idp",
+    element: () => import("@/pages/IdentificationPhoto"),
+  },
+  {
+    name: "数据传输",
+    path: "/dt",
+    element: () => import("@/pages/DataTransmission"),
+  },
 ] as const;
 
 export { menuItems };

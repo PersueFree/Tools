@@ -13,6 +13,15 @@ const AppContainer = styled.div`
   background: #ffffff;
 `;
 
+const routes = menuItems.flatMap((item) => {
+  if (!item.element) {
+    return [];
+  }
+
+  const LazyComponent = lazy(item.element);
+  return [{ path: item.path, element: <LazyComponent /> }];
+});
+
 const App: FC = () => {
   useEffect(() => {
     document.title = "Tool Combination";
@@ -24,12 +33,9 @@ const App: FC = () => {
           <Suspense fallback={<div>Loading...</div>}>
             <Layout>
               <Routes>
-                {menuItems.map((item) => {
-                  if (!item.element) return null;
-                  const LazyComponent = lazy(item.element);
-
-                  return <Route key={item.path} path={item.path} element={<LazyComponent />} />;
-                })}
+                {routes.map((route) => (
+                  <Route key={route.path} path={route.path} element={route.element} />
+                ))}
               </Routes>
             </Layout>
           </Suspense>

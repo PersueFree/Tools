@@ -1,10 +1,10 @@
 import { Form, Input, Select } from "antd";
-import * as cheerio from "cheerio";
 import { FC, useEffect } from "react";
 import styled from "styled-components";
 
 import { useAppDispatch, useAppSelector } from "@/store";
 import { setPoc_state } from "@/store/appSlice";
+import { extractTextareaText } from "@/utils/extractTextareaText";
 
 const { TextArea } = Input;
 
@@ -72,7 +72,7 @@ const AppConfusionConversion: FC = () => {
     if (poc.result) {
       form.setFieldsValue(poc);
     }
-  }, []);
+  }, [form, poc]);
 
   const handleSubmit = async () => {
     const formValue = await form.validateFields();
@@ -92,8 +92,7 @@ const AppConfusionConversion: FC = () => {
         body: formData,
       });
       const html = await res.text();
-      const $ = cheerio.load(html);
-      const result = $("#right textarea").text();
+      const result = extractTextareaText(html, "#right textarea");
 
       form.setFieldsValue({
         result: result,

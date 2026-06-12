@@ -1,5 +1,5 @@
 import { Input } from "antd";
-import { ChangeEvent, FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, useState } from "react";
 import styled from "styled-components";
 
 import { Message } from "@/components";
@@ -52,17 +52,8 @@ const ShuffleTextOrder: FC = () => {
   const dispatch = useAppDispatch();
   const st = useAppSelector((state) => state.app.st);
 
-  const [value, setValue] = useState<string>("");
-  const [shuffleValue, setShuffleValue] = useState<string>("");
-
-  useEffect(() => {
-    if (st.value) {
-      setValue(st.value);
-    }
-    if (st.shuffleValue) {
-      setShuffleValue(st.shuffleValue);
-    }
-  }, []);
+  const [value, setValue] = useState<string>(st.value ?? "");
+  const [shuffleValue, setShuffleValue] = useState<string>(st.shuffleValue ?? "");
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e?.target?.value || "");

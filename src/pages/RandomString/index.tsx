@@ -1,5 +1,5 @@
 import { Input, Select } from "antd";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import styled from "styled-components";
 
 import { useAppDispatch, useAppSelector } from "@/store";
@@ -62,29 +62,11 @@ const RandomString: FC = () => {
   const dispatch = useAppDispatch();
   const rs = useAppSelector((state) => state.app.rs);
 
-  const [prefix, setPrefix] = useState<string>("");
-  const [strLength, setStrLength] = useState<number>(15);
-  const [groups, setGroups] = useState<number>(1);
-  const [type, setType] = useState<number>(0);
-  const [shuffleValue, setShuffleValue] = useState<string | string[]>("");
-
-  useEffect(() => {
-    if (rs.prefix) {
-      setPrefix(rs.prefix);
-    }
-    if (rs.strLength) {
-      setStrLength(rs.strLength);
-    }
-    if (rs.groups) {
-      setGroups(rs.groups);
-    }
-    if (rs.type) {
-      setType(rs.type);
-    }
-    if (rs.shuffleValue) {
-      setShuffleValue(rs.shuffleValue);
-    }
-  }, []);
+  const [prefix, setPrefix] = useState<string>(rs.prefix ?? "");
+  const [strLength, setStrLength] = useState<number>(rs.strLength ?? 15);
+  const [groups, setGroups] = useState<number>(rs.groups ?? 1);
+  const [type, setType] = useState<number>(rs.type ?? 0);
+  const [shuffleValue, setShuffleValue] = useState<string | string[]>(rs.shuffleValue ?? "");
 
   const handleSingleGroup = () => {
     if (groups === 1) {

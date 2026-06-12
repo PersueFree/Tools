@@ -10,7 +10,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
   base: "/",
   server: {
-    port: 8087,
+    port: 8099,
     host: true,
     open: true,
     proxy: {
@@ -72,7 +72,6 @@ export default defineConfig({
           react: ["react", "react-dom"],
           router: ["react-router-dom"],
           antd: ["antd"],
-          axios: ["axios"],
         },
       },
     },
